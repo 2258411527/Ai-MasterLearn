@@ -1,0 +1,188 @@
+.el-breadcrumb__inner,
+.el-breadcrumb__inner a {
+  font-weight: 400 !important;
+  color: var(--text-secondary) !important;
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: var(--accent-light) !important;
+  }
+}
+
+.el-upload {
+  input[type="file"] {
+    display: none !important;
+  }
+}
+
+.el-upload__input {
+  display: none;
+}
+
+.el-dialog {
+  transform: none;
+  left: 0;
+  position: relative;
+  margin: 0 auto;
+  background: var(--dialog-bg) !important;
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--dialog-border) !important;
+  border-radius: 16px !important;
+
+  .el-dialog__header {
+    padding: 20px 24px 16px;
+    border-bottom: 1px solid var(--border-primary);
+  }
+
+  .el-dialog__title {
+    color: var(--text-primary);
+    font-weight: 600;
+    font-size: 16px;
+  }
+
+  .el-dialog__body {
+    padding: 24px;
+    color: var(--text-primary);
+  }
+
+  .el-dialog__footer {
+    padding: 16px 24px 20px;
+    border-top: 1px solid var(--border-primary);
+  }
+}
+
+.el-dialog__wrapper {
+  .el-dialog__headerbtn {
+    .el-dialog__close {
+      color: var(--text-secondary);
+
+      &:hover {
+        color: var(--accent);
+      }
+    }
+  }
+}
+
+.el-date-editor {
+  &.el-input,
+  &.el-input__inner {
+    width: 100%;
+  }
+}
+
+.el-dropdown-menu {
+  background: var(--bg-elevated) !important;
+  backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--border-primary) !important;
+  border-radius: 12px !important;
+  overflow: hidden;
+  padding: 8px !important;
+
+  .el-dropdown-menu__item {
+    color: var(--text-primary) !important;
+    border-radius: 8px;
+    margin: 2px 0;
+
+    &:hover {
+      background: var(--bg-hover) !important;
+      color: var(--accent-light) !important;
+    }
+  }
+}
+
+.el-select-dropdown {
+  background: var(--bg-elevated) !important;
+  backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--border-primary) !important;
+  border-radius: 12px !important;
+
+  .el-select-dropdown__item {
+    color: var(--text-primary);
+
+    &:hover,
+    &.is-hovering {
+      background: var(--bg-hover);
+    }
+
+    &.selected {
+      color: var(--accent);
+      font-weight: 600;
+    }
+  }
+}
+
+.el-message-box {
+  background: var(--dialog-bg) !important;
+  backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--dialog-border) !important;
+  border-radius: 16px !important;
+
+  .el-message-box__title {
+    color: var(--text-primary);
+  }
+
+  .el-message-box__message {
+    color: var(--text-secondary);
+  }
+}
+
+.el-button--text {
+  color: var(--text-secondary);
+
+  &:hover {
+    color: var(--accent-light);
+  }
+}
+
+.el-tabs__item {
+  color: var(--text-secondary);
+
+  &.is-active {
+    color: var(--accent);
+  }
+
+  &:hover {
+    color: var(--accent-light);
+  }
+}
+
+.el-tabs__nav-wrap::after {
+  background-color: var(--border-primary);
+}
+
+.el-loading-mask {
+  background: var(--bg-overlay) !important;
+}
+
+.el-progress-bar__outer {
+  background: var(--bg-hover) !important;
+}
+
+.el-progress-bar__inner {
+  background: var(--accent-gradient) !important;
+}
+
+.el-radio__input.is-checked .el-radio__inner {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.el-radio__input.is-checked + .el-radio__label {
+  color: var(--accent);
+}
+
+.el-switch__label.is-active {
+  color: var(--accent);
+}
+
+.el-input-number__decrease,
+.el-input-number__increase {
+  background: var(--bg-input) !important;
+  color: var(--text-secondary) !important;
+  border-color: var(--border-primary) !important;
+
+  &:hover {
+    color: var(--accent) !important;
+  }
+}

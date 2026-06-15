@@ -1,0 +1,208 @@
+.glass-card {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  transition: all 0.3s ease;
+}
+
+.glass-card:hover {
+  border-color: var(--border-focus);
+}
+
+.glass-input {
+  background: var(--bg-input);
+  border: 1px solid var(--border-primary);
+  color: var(--text-primary);
+  border-radius: 10px;
+  transition: border-color 0.2s ease;
+}
+
+.glass-input:focus {
+  border-color: var(--accent);
+  background: var(--bg-hover);
+}
+
+.app-container {
+  padding: 24px;
+  min-height: 100vh;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.app-container .el-card {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  color: var(--text-primary);
+}
+
+.app-container .el-card__header {
+  color: var(--text-primary);
+  border-bottom: 1px solid var(--border-primary);
+  font-weight: 600;
+}
+
+.app-container .el-card__body {
+  color: var(--text-primary);
+}
+
+.app-container .el-form-item__label {
+  color: var(--text-secondary);
+}
+
+.app-container .el-input__inner {
+  background: var(--bg-input);
+  border-color: var(--border-primary);
+  color: var(--text-primary);
+}
+
+.app-container .el-input__inner::placeholder {
+  color: var(--text-hint);
+}
+
+.app-container .el-input__inner:focus {
+  border-color: var(--accent);
+}
+
+.app-container .el-select .el-input__inner {
+  background: var(--bg-input);
+  border-color: var(--border-primary);
+  color: var(--text-primary);
+}
+
+.app-container .el-textarea__inner {
+  background: var(--bg-input);
+  border-color: var(--border-primary);
+  color: var(--text-primary);
+}
+
+.app-container .el-textarea__inner::placeholder {
+  color: var(--text-hint);
+}
+
+.app-container .el-table {
+  background: transparent;
+  color: var(--text-primary);
+}
+
+.app-container .el-table th {
+  background: var(--table-header-bg);
+  color: var(--text-secondary);
+  border-bottom: 1px solid var(--table-border);
+}
+
+.app-container .el-table td {
+  background: var(--table-row-bg);
+  color: var(--text-primary);
+  border-bottom: 1px solid var(--table-border);
+}
+
+.app-container .el-table tr:hover td {
+  background: var(--table-row-hover);
+}
+
+.app-container .el-table::before {
+  background-color: var(--border-primary);
+}
+
+.app-container .el-pagination .el-pager li {
+  background: var(--pagination-bg);
+  border: 1px solid var(--border-primary);
+  color: var(--pagination-text);
+  border-radius: 8px;
+}
+
+.app-container .el-pagination .el-pager li.is-active {
+  background: var(--pagination-active-bg);
+  color: #fff;
+}
+
+.app-container .el-pagination .btn-prev,
+.app-container .el-pagination .btn-next {
+  background: var(--pagination-bg);
+  border: 1px solid var(--border-primary);
+  color: var(--pagination-text);
+  border-radius: 8px;
+}
+
+.app-container .el-button--primary {
+  background: var(--accent-gradient);
+  border: none;
+}
+
+.app-container .el-button--primary:hover {
+  opacity: 0.9;
+  box-shadow: 0 4px 16px rgba(99, 102, 241, 0.4);
+}
+
+.app-container .el-tag {
+  border: none;
+  border-radius: 6px;
+}
+
+.app-container .el-dialog {
+  background: var(--dialog-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--dialog-border);
+  border-radius: 16px;
+}
+
+.app-container .el-dialog__title {
+  color: var(--text-primary);
+}
+
+.app-container .el-dialog .el-form-item__label {
+  color: var(--text-secondary);
+}
+
+.app-container .el-dialog .el-input__inner {
+  background: var(--bg-input);
+  border-color: var(--border-primary);
+  color: var(--text-primary);
+}
+
+.app-container .el-dialog .el-textarea__inner {
+  background: var(--bg-input);
+  border-color: var(--border-primary);
+  color: var(--text-primary);
+}
+
+.app-container .el-radio__label {
+  color: var(--text-secondary);
+}
+
+.app-container .el-empty__description {
+  color: var(--text-secondary);
+}
+
+.pagination-container {
+  padding: 16px 0;
+  text-align: center;
+}
+
+.bg-decoration {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.gradient-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.3;
+}
+
+[data-theme="dark"] .gradient-orb { opacity: 0.4; }
+[data-theme="light"] .gradient-orb { opacity: 0.15; }

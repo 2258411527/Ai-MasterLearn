@@ -1,0 +1,244 @@
+@use 'variables.scss' as *;
+
+#app {
+
+  .main-container {
+    min-height: 100%;
+    transition: margin-left .28s;
+    margin-left: $sideBarWidth;
+    position: relative;
+    background: var(--bg-primary);
+  }
+
+  .sidebar-container {
+    transition: width 0.28s;
+    width: $sideBarWidth !important;
+    background: var(--sidebar-bg);
+    height: 100%;
+    position: fixed;
+    font-size: 0;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1001;
+    overflow: hidden;
+
+    .horizontal-collapse-transition {
+      transition: 0s width ease-in-out, 0s padding-left ease-in-out, 0s padding-right ease-in-out;
+    }
+
+    .scrollbar-wrapper {
+      overflow-x: hidden !important;
+    }
+
+    .el-scrollbar__bar.is-vertical {
+      right: 0px;
+    }
+
+    .el-scrollbar {
+      height: 100%;
+    }
+
+    &.has-logo {
+      .el-scrollbar {
+        height: calc(100% - 66px);
+      }
+    }
+
+    .is-horizontal {
+      display: none;
+    }
+
+    a {
+      display: inline-block;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    .svg-icon {
+      margin-right: 16px;
+    }
+
+    .sub-el-icon {
+      margin-right: 12px;
+      margin-left: -2px;
+    }
+
+    .el-menu {
+      border: none;
+      height: 100%;
+      width: 100% !important;
+      background: transparent;
+    }
+
+    .el-menu-item,
+    .el-submenu__title {
+      height: 50px;
+      line-height: 50px;
+      margin: 4px 8px;
+      border-radius: 10px;
+      color: var(--sidebar-text) !important;
+      background: transparent !important;
+      transition: all 0.2s ease;
+
+      &:hover {
+        background: var(--sidebar-hover) !important;
+        color: var(--text-primary) !important;
+      }
+
+      &.is-active {
+        background: var(--sidebar-active-bg) !important;
+        color: var(--sidebar-active-text) !important;
+        font-weight: 600;
+      }
+    }
+
+    .el-submenu {
+      .el-menu-item {
+        height: 44px;
+        line-height: 44px;
+        min-width: 200px;
+        padding-left: 50px !important;
+        margin: 2px 8px;
+        font-size: 13px;
+        background: transparent !important;
+        color: var(--sidebar-text) !important;
+
+        &:hover {
+          background: var(--sidebar-hover) !important;
+          color: var(--text-primary) !important;
+        }
+
+        &.is-active {
+          background: var(--sidebar-active-bg) !important;
+          color: var(--accent-light) !important;
+          font-weight: 600;
+        }
+      }
+    }
+
+    .nest-menu .el-submenu>.el-submenu__title,
+    .el-submenu .el-submenu__title {
+      &:hover {
+        background: var(--sidebar-hover) !important;
+      }
+    }
+  }
+
+  .hideSidebar {
+    .sidebar-container {
+      width: 54px !important;
+    }
+
+    .main-container {
+      margin-left: 54px;
+    }
+
+    .submenu-title-noDropdown {
+      padding: 0 !important;
+      position: relative;
+
+      .el-tooltip {
+        padding: 0 !important;
+
+        .svg-icon {
+          margin-left: 20px;
+        }
+
+        .sub-el-icon {
+          margin-left: 19px;
+        }
+      }
+    }
+
+    .el-submenu {
+      overflow: hidden;
+
+      &>.el-submenu__title {
+        padding: 0 !important;
+
+        .svg-icon {
+          margin-left: 20px;
+        }
+
+        .sub-el-icon {
+          margin-left: 19px;
+        }
+
+        .el-submenu__icon-arrow {
+          display: none;
+        }
+      }
+    }
+
+    .el-menu--collapse {
+      .el-submenu {
+        &>.el-submenu__title {
+          &>span {
+            height: 0;
+            width: 0;
+            overflow: hidden;
+            visibility: hidden;
+            display: inline-block;
+          }
+        }
+      }
+    }
+  }
+
+  .el-menu--collapse .el-menu .el-submenu {
+    min-width: $sideBarWidth !important;
+  }
+
+  .mobile {
+    .main-container {
+      margin-left: 0px;
+    }
+
+    .sidebar-container {
+      transition: transform .28s;
+      width: $sideBarWidth !important;
+    }
+
+    &.hideSidebar {
+      .sidebar-container {
+        pointer-events: none;
+        transition-duration: 0.3s;
+        transform: translate3d(-$sideBarWidth, 0, 0);
+      }
+    }
+  }
+
+  .withoutAnimation {
+
+    .main-container,
+    .sidebar-container {
+      transition: none;
+    }
+  }
+}
+
+.el-menu--vertical {
+  background: var(--sidebar-bg) !important;
+  backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--border-primary) !important;
+  border-radius: 12px;
+
+  &>.el-menu--popup {
+    max-height: 100vh;
+    overflow-y: auto;
+
+    &::-webkit-scrollbar-track-piece {
+      background: transparent;
+    }
+
+    &::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: var(--scrollbar-thumb);
+      border-radius: 20px;
+    }
+  }
+}

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.org.alan.exam.mapper.ReplyMapper">
+
+    <!--一对多映射-->
+    <resultMap id="replyChild" type="cn.org.alan.exam.model.vo.reply.ReplyVo" autoMapping="true">
+        <id column="id" property="id"/>
+        <!--<collection property="childReplies" select="selectChildReplies" autoMapping="true" column="{replyId=id, userId=userId}"/>-->
+    </resultMap>
+
+    <select id="selectReplies" resultMap="replyChild">
+        select 
+            r.id,
+            r.user_id,
+            r.discussion_id,
+            u.avatar,
+            u.real_name as sender,
+            CASE 
+                WHEN ur.code = 3 THEN 'admin'
+                WHEN ur.code = 2 THEN 'teacher'
+                ELSE 'student'
+            END as role,
+            r.parent_id,
+            r.content,
+            r.create_time,
+            COALESCE(r.like_count, 0) as likeCount,
+            CASE 
+                WHEN EXISTS (SELECT 1 FROM t_like WHERE reply_id = r.id AND user_id = #{userId}) 
+                THEN true 
+                ELSE false 
+            END as liked,
+            COALESCE(r.like_count, 0) as count,
+            CASE WHEN EXISTS (SELECT id FROM t_like WHERE reply_id = r.id AND user_id = #{userId}) THEN 1 ELSE 0 END as isLike
+        from t_reply as r
+        join t_user as u on u.id = r.user_id
+        left join t_role as ur on u.role_id = ur.id
+        where r.discussion_id = #{discussionId} and r.parent_id = -1
+        <if test='orderBy == 1'>
+            order by r.create_time asc
+        </if>
+        <if test='orderBy == 2'>
+            order by r.create_time desc
+        </if>
+        <if test='orderBy == 3'>
+            order by r.like_count asc
+        </if>
+        <if test='orderBy == 4'>
+            order by r.like_count desc
+        </if>
+    </select>
+
+    <select id="selectChildReplies" resultType="cn.org.alan.exam.model.vo.reply.ReplyVo">
+        select 
+            r.id,
+            r.user_id,
+            u.avatar,
+            u.real_name as sender,
+            CASE 
+                WHEN ur.code = 3 THEN 'admin'
+                WHEN ur.code = 2 THEN 'teacher'
+                ELSE 'student'
+            END as role,
+            r.content,
+            r.parent_id,
+            r.create_time,
+            COALESCE(r.like_count, 0) as likeCount,
+            CASE 
+                WHEN EXISTS (SELECT 1 FROM t_like WHERE reply_id = r.id AND user_id = #{userId}) 
+                THEN true 
+                ELSE false 
+            END as liked,
+            COALESCE(r.like_count, 0) as count,
+            CASE WHEN EXISTS (SELECT id FROM t_like WHERE reply_id = r.id AND user_id = #{userId}) THEN 1 ELSE 0 END as isLike
+        from t_reply as r
+        join t_user as u on u.id = r.user_id
+        left join t_role as ur on u.role_id = ur.id
+        where r.parent_id = #{replyId}
+        order by r.create_time desc
+    </select>
+
+</mapper>

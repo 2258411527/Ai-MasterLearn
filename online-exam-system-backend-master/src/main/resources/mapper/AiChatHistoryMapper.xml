@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.org.alan.exam.mapper.AiChatHistoryMapper">
+
+    <!-- 根据用户ID查询聊天记录 -->
+    <select id="selectByUserId" resultType="cn.org.alan.exam.model.vo.ai.AiChatHistoryVO">
+        SELECT 
+            ach.id,
+            ach.user_id as userId,
+            ach.role,
+            ach.content,
+            ach.create_time as createTime,
+            u.real_name as userName
+        FROM t_ai_chat_history ach
+        LEFT JOIN t_user u ON ach.user_id = u.id
+        WHERE ach.user_id = #{userId} 
+          AND ach.is_deleted = 0
+        ORDER BY ach.create_time ASC
+    </select>
+
+    <!-- 分页查询用户聊天记录 -->
+    <select id="selectChatHistoryPage" resultType="cn.org.alan.exam.model.vo.ai.AiChatHistoryVO">
+        SELECT 
+            ach.id,
+            ach.user_id as userId,
+            ach.role,
+            ach.content,
+            ach.create_time as createTime,
+            u.real_name as userName
+        FROM t_ai_chat_history ach
+        LEFT JOIN t_user u ON ach.user_id = u.id
+        WHERE ach.user_id = #{userId} 
+          AND ach.is_deleted = 0
+        ORDER BY ach.create_time DESC
+    </select>
+
+    <!-- 逻辑删除用户的所有聊天记录 -->
+    <update id="deleteByUserId">
+        UPDATE t_ai_chat_history
+        SET is_deleted = 1
+        WHERE user_id = #{userId} 
+          AND is_deleted = 0
+    </update>
+
+</mapper>

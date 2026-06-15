@@ -1,0 +1,108 @@
+package cn.org.alan.exam.utils;
+
+import cn.org.alan.exam.common.exception.ServiceRuntimeException;
+import cn.org.alan.exam.utils.security.SysUserDetails;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+
+import java.util.List;
+
+/**
+ * Security工具类
+ *
+ * @Author WeiJin
+ * @Version 1.0
+ * @Date 2024/3/30 0:10
+ */
+@Slf4j
+public class SecurityUtil {
+
+    /**
+     * 获取当前用户id
+     *
+     * @return 用户id
+     */
+    public static Integer getUserId() {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        
+        // 类型安全检查
+        if (!(principal instanceof SysUserDetails)) {
+            log.error("SecurityContext中的principal类型错误: 期望SysUserDetails, 实际为: {}", 
+                     principal != null ? principal.getClass().getName() : "null");
+            throw new ServiceRuntimeException("用户未正确登录，请重新登录");
+        }
+        
+        SysUserDetails user = (SysUserDetails) principal;
+        return user.getUser().getId();
+    }
+
+    /**
+     * 获取当前用户角色
+     *
+     * @return 角色
+     */
+    public static String getRole() {
+        List<? extends GrantedAuthority> list = SecurityContextHolder.getContext().getAuthentication().getAuthorities().stream().collect(java.util.stream.Collectors.toList());
+        return list.get(0).toString();
+    }
+
+    /**
+     * 获取当前用户角色代码 1：学生、2：教师、3管理员
+     *
+     * @return 角色
+     */
+    public static Integer getRoleCode() {
+        List<? extends GrantedAuthority> list = SecurityContextHolder.getContext().getAuthentication().getAuthorities().stream().collect(java.util.stream.Collectors.toList());
+        String roleName = list.get(0).toString();
+        Integer roleCode;
+        if ("role_admin".equals(roleName)) {
+            roleCode = 3;
+        } else if ("role_teacher".equals(roleName)) {
+            roleCode = 2;
+        } else if ("role_student".equals(roleName)) {
+            roleCode = 1;
+        } else {
+            throw new ServiceRuntimeException("无法获取角色代码");
+        }
+        return roleCode;
+    }
+
+    /**
+     * 获取当前用户所在班级Id
+     *
+     * @return
+     */
+    public static Integer getGradeId() {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        
+        // 类型安全检查
+        if (!(principal instanceof SysUserDetails)) {
+            log.error("SecurityContext中的principal类型错误: 期望SysUserDetails, 实际为: {}", 
+                     principal != null ? principal.getClass().getName() : "null");
+            throw new ServiceRuntimeException("用户未正确登录，请重新登录");
+        }
+        
+        SysUserDetails user = (SysUserDetails) principal;
+        return user.getUser().getGradeId();
+    }
+
+    public static boolean isTeacher() {
+        return getRoleCode() == 2;
+    }
+
+    public static boolean isAdmin() {
+        return getRoleCode() == 3;
+    }
+
+    public static boolean isStudent() {
+        return getRoleCode() == 1;
+    }
+
+    public static boolean isTeacherOrAdmin() {
+        Integer code = getRoleCode();
+        return code == 2 || code == 3;
+    }
+
+
+}

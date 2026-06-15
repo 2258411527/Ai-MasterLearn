@@ -1,0 +1,42 @@
+spring:
+  application:
+    name: exam
+  profiles:
+    active: dev
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+  ai:
+    provider: qwen
+    api-key: ${AI_API_KEY:YOUR_AI_API_KEY_HERE}
+    base-url: ${AI_BASE_URL:https://dashscope.aliyuncs.com/compatible-mode/v1}
+    model: ${AI_MODEL:qwen3.5-122b-a10b}
+    enabled: true
+    mock-mode: false
+
+# JWT配置
+jwt:
+  secret: ${JWT_SECRET:YOUR_JWT_SECRET_HERE_AT_LEAST_256_BITS}
+  expiration: 1800000
+  refreshThreshold: 900000
+
+alipay:
+  app-id: ""
+  private-key: ""
+  alipay-public-key: ""
+  server-url: "https://openapi.alipay.com/gateway.do"
+  notify-url: "http://localhost:8080/api/alipay/notify"
+  return-url: "http://localhost:8080/token"
+  sign-type: "RSA2"
+  charset: "UTF-8"
+  format: "json"
+
+# 新用户注册配置
+register:
+  # 新用户注册赠送tokens数量（0表示不赠送）
+  gift-tokens: 100
+  # 新用户首充折扣（如0.8表示8折，1表示无折扣）
+  first-purchase-discount: 0.8
+  # 新用户优惠提示信息
+  welcome-message: "恭喜注册成功！系统已赠送您100个Tokens，首充享8折优惠！"

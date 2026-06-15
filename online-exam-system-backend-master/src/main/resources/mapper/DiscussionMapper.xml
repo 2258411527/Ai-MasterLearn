@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.org.alan.exam.mapper.DiscussionMapper">
+
+    <select id="selectOwnerPage" resultType="cn.org.alan.exam.model.vo.discussion.PageDiscussionVo">
+        select 
+            d.id,
+            d.title,
+            u.real_name as sender,
+            u.avatar,
+            CASE 
+                WHEN r.code = 3 THEN 'admin'
+                WHEN r.code = 2 THEN 'teacher'
+                ELSE 'student'
+            END as role,
+            COALESCE(d.comment_count, 0) as commentCount,
+            COALESCE(d.like_count, 0) as likeCount,
+            COALESCE(d.view_count, 0) as viewCount,
+            d.visibility,
+            d.content,
+            CASE 
+                WHEN EXISTS (SELECT 1 FROM t_like WHERE discussion_id = d.id AND user_id = #{userId} AND reply_id IS NULL) 
+                THEN true 
+                ELSE false 
+            END as liked,
+            d.create_time
+        from t_discussion as d
+        join t_user as u on d.user_id = u.id
+        left join t_role as r on u.role_id = r.id
+        <trim prefix="where" prefixOverrides="and">
+            d.user_id = #{userId}
+            <if test='title != null and title != ""'>
+                and d.title like concat('%',#{title},'%')
+            </if>
+            <if test='gradeId != 0 and gradeId != null'  >
+                and d.grade_id = #{gradeId}
+            </if>
+        </trim>
+        order by d.create_time desc
+    </select>
+    
+    <select id="selectDetail" resultType="cn.org.alan.exam.model.vo.discussion.DiscussionDetailVo">
+        select 
+            d.id,
+            d.title,
+            u.real_name as sender,
+            u.avatar,
+            CASE 
+                WHEN r.code = 3 THEN 'admin'
+                WHEN r.code = 2 THEN 'teacher'
+                ELSE 'student'
+            END as role,
+            d.content,
+            g.grade_name,
+            COALESCE(d.comment_count, 0) as commentCount,
+            COALESCE(d.like_count, 0) as likeCount,
+            COALESCE(d.view_count, 0) as viewCount,
+            d.visibility,
+            CASE 
+                WHEN EXISTS (SELECT 1 FROM t_like WHERE discussion_id = d.id AND user_id = #{userId} AND reply_id IS NULL) 
+                THEN true 
+                ELSE false 
+            END as liked,
+            d.create_time
+        from t_discussion as d
+        join t_user as u on d.user_id = u.id
+        left join t_grade as g on d.grade_id = g.id
+        left join t_role as r on u.role_id = r.id
+        where d.id = #{id}
+    </select>
+
+    <select id="selectDiscussionByGradePage"
+            resultType="cn.org.alan.exam.model.vo.discussion.PageDiscussionVo">
+        select 
+            d.id,
+            d.title,
+            u.real_name as sender,
+            u.avatar,
+            CASE 
+                WHEN r.code = 3 THEN 'admin'
+                WHEN r.code = 2 THEN 'teacher'
+                ELSE 'student'
+            END as role,
+            COALESCE(d.comment_count, 0) as commentCount,
+            COALESCE(d.like_count, 0) as likeCount,
+            COALESCE(d.view_count, 0) as viewCount,
+            d.visibility,
+            d.content,
+            CASE 
+                WHEN EXISTS (SELECT 1 FROM t_like WHERE discussion_id = d.id AND user_id = #{userId} AND reply_id IS NULL) 
+                THEN true 
+                ELSE false 
+            END as liked,
+            d.create_time
+        from t_discussion as d
+        join t_user as u on d.user_id = u.id
+        left join t_role as r on u.role_id = r.id
+        left join t_grade as g on d.grade_id = g.id
+        <trim prefix="where" prefixOverrides="and">
+            <if test='title != null and title != ""'>
+                and d.title like concat('%',#{title},'%')
+            </if>
+            and (
+                d.visibility = 1 
+                OR (d.visibility = 0 AND d.grade_id = #{gradeId})
+            )
+        </trim>
+        order by d.create_time desc
+    </select>
+
+    <select id="selectHotDiscussions"
+            resultType="cn.org.alan.exam.model.vo.discussion.PageDiscussionVo">
+        select 
+            d.id,
+            d.title,
+            u.real_name as sender,
+            u.avatar,
+            CASE 
+                WHEN r.code = 3 THEN 'admin'
+                WHEN r.code = 2 THEN 'teacher'
+                ELSE 'student'
+            END as role,
+            COALESCE(d.comment_count, 0) as commentCount,
+            COALESCE(d.like_count, 0) as likeCount,
+            COALESCE(d.view_count, 0) as viewCount,
+            d.visibility,
+            d.content,
+            CASE 
+                WHEN EXISTS (SELECT 1 FROM t_like WHERE discussion_id = d.id AND user_id = #{userId} AND reply_id IS NULL) 
+                THEN true 
+                ELSE false 
+            END as liked,
+            d.create_time
+        from t_discussion as d
+        join t_user as u on d.user_id = u.id
+        left join t_role as r on u.role_id = r.id
+        where d.visibility = 1 OR d.grade_id IN (SELECT grade_id FROM t_user_grade WHERE user_id = #{userId})
+        order by d.like_count desc, d.create_time desc
+        limit #{size}
+    </select>
+
+</mapper>

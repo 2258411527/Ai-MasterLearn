@@ -1,0 +1,44 @@
+# IDE & Editor
+.idea/
+.vscode/
+.trae/
+*.iml
+*.iws
+*.ipr
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# JVM crash logs
+hs_err_pid*
+replay_pid*
+
+# Build output
+target/
+out/
+dist/
+build/
+
+# Dependencies
+node_modules/
+
+# User uploaded files (may contain private data)
+online-exam-system-backend-master/uploads/
+online-exam-system-backend-master/avatars/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Environment & secrets
+.env.local
+.env.*.local
+
+# Package lock (optional)
+package-lock.json
+
+# Maven wrapper
+.mvn/
+mvnw
+mvnw.cmd

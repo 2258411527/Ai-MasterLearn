@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.org.alan.exam.mapper.StudyMaterialMapper">
+
+    <!-- 根据用户ID查询学习资料 -->
+    <select id="selectByUserId" resultType="cn.org.alan.exam.model.vo.study.StudyMaterialVO">
+        SELECT 
+            sm.id,
+            sm.user_id as userId,
+            sm.file_name as fileName,
+            sm.original_name as originalName,
+            sm.file_path as filePath,
+            sm.file_size as fileSize,
+            sm.file_type as fileType,
+            sm.upload_time as uploadTime,
+            sm.show_in_gallery as showInGallery,
+            u.real_name as userName
+        FROM t_study_material sm
+        LEFT JOIN t_user u ON sm.user_id = u.id
+        WHERE sm.user_id = #{userId} 
+          AND sm.is_deleted = 0
+        ORDER BY sm.upload_time DESC
+    </select>
+
+    <!-- 分页查询用户学习资料 -->
+    <select id="selectStudyMaterialPage" resultType="cn.org.alan.exam.model.vo.study.StudyMaterialVO">
+        SELECT 
+            sm.id,
+            sm.user_id as userId,
+            sm.file_name as fileName,
+            sm.original_name as originalName,
+            sm.file_path as filePath,
+            sm.file_size as fileSize,
+            sm.file_type as fileType,
+            sm.upload_time as uploadTime,
+            sm.show_in_gallery as showInGallery,
+            u.real_name as userName
+        FROM t_study_material sm
+        LEFT JOIN t_user u ON sm.user_id = u.id
+        WHERE sm.user_id = #{userId} 
+          AND sm.is_deleted = 0
+        <if test="fileName != null and fileName != ''">
+            AND (sm.file_name LIKE CONCAT('%', #{fileName}, '%') 
+                 OR sm.original_name LIKE CONCAT('%', #{fileName}, '%'))
+        </if>
+        ORDER BY sm.upload_time DESC
+    </select>
+
+    <!-- 根据ID和用户ID查询学习资料 -->
+    <select id="selectByIdAndUserId" resultType="cn.org.alan.exam.model.vo.study.StudyMaterialVO">
+        SELECT 
+            sm.id,
+            sm.user_id as userId,
+            sm.file_name as fileName,
+            sm.original_name as originalName,
+            sm.file_path as filePath,
+            sm.file_size as fileSize,
+            sm.file_type as fileType,
+            sm.upload_time as uploadTime,
+            sm.show_in_gallery as showInGallery,
+            u.real_name as userName
+        FROM t_study_material sm
+        LEFT JOIN t_user u ON sm.user_id = u.id
+        WHERE sm.id = #{id} 
+          AND sm.user_id = #{userId}
+          AND sm.is_deleted = 0
+    </select>
+
+    <!-- 分页查询所有用户的学习资料（电子展馆） -->
+    <select id="selectGalleryMaterialsPage" resultType="cn.org.alan.exam.model.vo.study.StudyMaterialVO">
+        SELECT 
+            sm.id,
+            sm.user_id as userId,
+            sm.file_name as fileName,
+            sm.original_name as originalName,
+            sm.file_path as filePath,
+            sm.file_size as fileSize,
+            sm.file_type as fileType,
+            sm.upload_time as uploadTime,
+            sm.show_in_gallery as showInGallery,
+            u.real_name as userName
+        FROM t_study_material sm
+        LEFT JOIN t_user u ON sm.user_id = u.id
+        WHERE sm.is_deleted = 0
+        AND sm.show_in_gallery = 1
+        <if test="fileName != null and fileName != ''">
+            AND (sm.file_name LIKE CONCAT('%', #{fileName}, '%') 
+                 OR sm.original_name LIKE CONCAT('%', #{fileName}, '%'))
+        </if>
+        <if test="uploaderName != null and uploaderName != ''">
+            AND u.real_name LIKE CONCAT('%', #{uploaderName}, '%')
+        </if>
+        ORDER BY sm.upload_time DESC
+    </select>
+
+</mapper>

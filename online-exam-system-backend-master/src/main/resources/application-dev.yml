@@ -1,0 +1,131 @@
+server:
+  port: 8080 # 允许端口号
+  # context-path is not set here because controllers already include /api prefix
+  # 增加Tomcat超时时间，适应PDF OCR等长时间处理操作(支持100MB文件)
+  tomcat:
+    connection-timeout: 1800000  # 连接超时时间：30分钟（毫秒）,支持大文件OCR处理
+    keep-alive-timeout: 1800000  # Keep-Alive超时时间：30分钟
+    max-threads: 200            # 最大线程数
+    min-spare-threads: 10       # 最小空闲线程数
+  servlet:
+    context-path: /api
+spring:
+  main:
+    # 关闭banner
+    banner-mode: console
+    # 允许循环引用
+    allow-circular-references: true
+  # mysql配置
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/db_exam?useSSL=false&serverTimezone=Asia/Shanghai&characterEncoding=utf8&allowPublicKeyRetrieval=true
+    username: ${MYSQL_USERNAME:root}
+    password: ${MYSQL_PASSWORD:YOUR_MYSQL_PASSWORD_HERE}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  # redis配置
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    timeout: 3000
+    password:
+    database: 0
+    lettuce:
+      pool:
+        max-active: 8
+        max-wait: -1
+        max-idle: 8
+        min-idle: 0
+  session:
+    store-type: redis
+    redis:
+      flush-mode: on_save
+      namespace: spring:session
+  task:
+    execution:
+      pool:
+        core-size: 4
+        max-size: 8
+        queue-capacity: 50
+        keep-alive: 60s
+      thread-name-prefix: ai-grading-
+  servlet:
+    multipart:
+      max-file-size: 100MB  # 单个文件最大100MB
+      max-request-size: 100MB  # 请求最大100MB
+
+# 文件上传配置
+file:
+  upload-dir: ./uploads
+  skip-db-save: false  # 如果数据库无法连接，设置为 true 可跳过数据库保存（仅保存文件）
+  max-size: 104857600  # 100MB in bytes
+
+#MybatisPlus配置
+mybatis-plus:
+  global-config:
+    # 关闭banner
+    banner: false
+    db-config:
+      # 逻辑删除配置
+      logic-not-delete-value: 0  # 未删除值
+      logic-delete-value: 1      # 已删除值
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true
+  type-aliases-package: cn.org.alan.exam.model
+
+#jwt配置 密钥、过期时间、检查是否快到期时间
+jwt:
+  secret: ${JWT_SECRET:YOUR_JWT_SECRET_HERE_AT_LEAST_256_BITS}
+  expiration: 1800000 # 30分钟，单位为毫秒 token过期时间
+  refreshThreshold: 900000  # 15分钟，单位为毫秒 判断是否剩xx分钟过期
+
+# 阿里云oss文件存储服务
+oss:
+  endpoint: https://oss-cn-beijing.aliyuncs.com
+  access-key-id: ${OSS_ACCESS_KEY_ID:YOUR_OSS_ACCESS_KEY_ID_HERE}
+  access-key-secret: ${OSS_ACCESS_KEY_SECRET:YOUR_OSS_ACCESS_KEY_SECRET_HERE}
+  bucket-name: online-exam-system-backend
+
+# Minio本地文件存储服务
+minio:
+  endpoint: http://127.0.0.1:9000 # minio服务地址
+  accesskey: ${MINIO_ACCESS_KEY:YOUR_MINIO_ACCESS_KEY_HERE}
+  secretKey: ${MINIO_SECRET_KEY:YOUR_MINIO_SECRET_KEY_HERE}
+  bucket: online-exam #桶名
+
+# Milvus向量数据库配置
+milvus:
+  username: ${MILVUS_USERNAME:root}
+  password: ${MILVUS_PASSWORD:YOUR_MILVUS_PASSWORD_HERE}
+  host: ${MILVUS_HOST:127.0.0.1}
+  port: 19530
+
+# 日志配置
+logging:
+  level:
+    root: info
+    com.example: debug
+
+#自定义配置
+online-exam:
+  chat-platform:
+    type: dashscope # 统一使用阿里百炼 DashScope
+  storage:
+    type: local # 存储方式的配置 aliyun、minio、local
+  login:
+    captcha:
+      enabled: true #是否启用验证码登录
+  auto-scoring:
+    enabled: true #是否启用AI自动阅卷功能
+
+system:
+  register:
+    enabled: true  # 控制是否开放注册功能
+
+# AI 统一配置 - 阿里百炼 DashScope (兼容OpenAI接口)
+ai-custom:
+  enabled: true
+  api-key: "${AI_API_KEY:YOUR_AI_API_KEY_HERE}"
+  base-url: "https://dashscope.aliyuncs.com/compatible-mode/v1"
+  model: "qwen3.5-122b-a10b"
+  max-tokens: 2000
+  temperature: 0.7

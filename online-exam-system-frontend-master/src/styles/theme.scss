@@ -1,0 +1,167 @@
+:root,
+[data-theme="dark"] {
+  --bg-primary: #0F172A;
+  --bg-secondary: rgba(30, 41, 59, 0.6);
+  --bg-card: rgba(30, 41, 59, 0.8);
+  --bg-elevated: rgba(30, 41, 59, 0.95);
+  --bg-overlay: rgba(15, 23, 42, 0.8);
+  --bg-input: rgba(255, 255, 255, 0.05);
+  --bg-hover: rgba(255, 255, 255, 0.05);
+  --bg-active: rgba(99, 102, 241, 0.1);
+
+  --text-primary: #F8FAFC;
+  --text-secondary: #94A3B8;
+  --text-hint: #64748B;
+  --text-disabled: #475569;
+
+  --border-primary: rgba(255, 255, 255, 0.1);
+  --border-secondary: rgba(255, 255, 255, 0.05);
+  --border-focus: rgba(99, 102, 241, 0.5);
+
+  --accent: #6366F1;
+  --accent-light: #818CF8;
+  --accent-gradient: linear-gradient(135deg, #6366F1 0%, #818CF8 100%);
+  --success: #10B981;
+  --warning: #F59E0B;
+  --danger: #EF4444;
+  --info: #3B82F6;
+
+  --glass-bg: rgba(30, 41, 59, 0.6);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-blur: blur(20px);
+
+  --sidebar-bg: rgba(15, 23, 42, 0.9);
+  --sidebar-text: #94A3B8;
+  --sidebar-active-text: #F8FAFC;
+  --sidebar-hover: rgba(99, 102, 241, 0.15);
+  --sidebar-active-bg: rgba(99, 102, 241, 0.2);
+
+  --navbar-bg: rgba(15, 23, 42, 0.8);
+  --navbar-border: rgba(255, 255, 255, 0.08);
+  --navbar-text: #F8FAFC;
+  --navbar-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+
+  --tag-bg: rgba(255, 255, 255, 0.08);
+  --tag-border: rgba(255, 255, 255, 0.1);
+  --tag-text: #94A3B8;
+  --tag-active-bg: rgba(99, 102, 241, 0.25);
+  --tag-active-text: #F8FAFC;
+
+  --table-header-bg: rgba(99, 102, 241, 0.08);
+  --table-row-bg: transparent;
+  --table-row-hover: rgba(255, 255, 255, 0.03);
+  --table-border: rgba(255, 255, 255, 0.05);
+
+  --dialog-bg: rgba(30, 41, 59, 0.95);
+  --dialog-border: rgba(255, 255, 255, 0.1);
+
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5);
+
+  --scrollbar-thumb: rgba(255, 255, 255, 0.15);
+  --scrollbar-track: transparent;
+
+  --pagination-bg: rgba(255, 255, 255, 0.05);
+  --pagination-active-bg: var(--accent-gradient);
+  --pagination-text: var(--text-secondary);
+}
+
+[data-theme="light"] {
+  --bg-primary: #F8FAFC;
+  --bg-secondary: rgba(255, 255, 255, 0.7);
+  --bg-card: rgba(255, 255, 255, 0.85);
+  --bg-elevated: rgba(255, 255, 255, 0.95);
+  --bg-overlay: rgba(248, 250, 252, 0.8);
+  --bg-input: rgba(0, 0, 0, 0.03);
+  --bg-hover: rgba(0, 0, 0, 0.03);
+  --bg-active: rgba(99, 102, 241, 0.08);
+
+  --text-primary: #1E293B;
+  --text-secondary: #64748B;
+  --text-hint: #94A3B8;
+  --text-disabled: #CBD5E1;
+
+  --border-primary: rgba(0, 0, 0, 0.08);
+  --border-secondary: rgba(0, 0, 0, 0.04);
+  --border-focus: rgba(99, 102, 241, 0.4);
+
+  --accent: #6366F1;
+  --accent-light: #818CF8;
+  --accent-gradient: linear-gradient(135deg, #6366F1 0%, #818CF8 100%);
+  --success: #10B981;
+  --warning: #F59E0B;
+  --danger: #EF4444;
+  --info: #3B82F6;
+
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(0, 0, 0, 0.06);
+  --glass-blur: blur(16px);
+
+  --sidebar-bg: rgba(248, 250, 252, 0.95);
+  --sidebar-text: #64748B;
+  --sidebar-active-text: #1E293B;
+  --sidebar-hover: rgba(99, 102, 241, 0.08);
+  --sidebar-active-bg: rgba(99, 102, 241, 0.12);
+
+  --navbar-bg: rgba(255, 255, 255, 0.8);
+  --navbar-border: rgba(0, 0, 0, 0.06);
+  --navbar-text: #1E293B;
+  --navbar-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+
+  --tag-bg: rgba(0, 0, 0, 0.04);
+  --tag-border: rgba(0, 0, 0, 0.08);
+  --tag-text: #64748B;
+  --tag-active-bg: rgba(99, 102, 241, 0.12);
+  --tag-active-text: #6366F1;
+
+  --table-header-bg: rgba(99, 102, 241, 0.04);
+  --table-row-bg: #FFFFFF;
+  --table-row-hover: rgba(99, 102, 241, 0.02);
+  --table-border: rgba(0, 0, 0, 0.06);
+
+  --dialog-bg: rgba(255, 255, 255, 0.95);
+  --dialog-border: rgba(0, 0, 0, 0.06);
+
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.1);
+
+  --scrollbar-thumb: rgba(0, 0, 0, 0.12);
+  --scrollbar-track: transparent;
+
+  --pagination-bg: rgba(0, 0, 0, 0.03);
+  --pagination-active-bg: var(--accent-gradient);
+  --pagination-text: var(--text-secondary);
+}
+
+html,
+body {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+#app {
+  background: var(--bg-primary);
+  min-height: 100vh;
+  transition: background 0.3s ease;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-hint);
+}
